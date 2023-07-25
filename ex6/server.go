@@ -10,13 +10,13 @@ import (
 )
 
 type DirMessage struct {
-	Status    int
-	ErrorText string
-	Time      string
-	Dirs      []dir.Directory
+	Status    int             `json:"Status"`
+	ErrorText string          `json:"ErrorText"`
+	Time      string          `json:"Time"`
+	Dirs      []dir.Directory `json:"Dirs"`
 }
 type Config struct {
-	Port string `json:"port"`
+	Port string `json:"Port"`
 }
 
 // getConfig получает конфигурацию из config.json
