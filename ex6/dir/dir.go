@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"io/ioutil"
 	"sort"
-	"sync"
 )
 
 const ByteInMB float64 = 1024 * 1024
@@ -43,8 +42,8 @@ func GetDirs(root string) ([]Directory, error) {
 		return nil, err
 	}
 	dirs := make([]Directory, 0, len(fileSlice))
-	var wg sync.WaitGroup
-	var mutex sync.Mutex
+	dirChan := make(chan Directory, len(fileSlice))
+	dircount := 0
 	for _, dir := range fileSlice {
 		if !dir.IsDir() {
 			var file Directory
@@ -54,9 +53,8 @@ func GetDirs(root string) ([]Directory, error) {
 			file.Type = "file"
 			dirs = append(dirs, file)
 		} else {
-			wg.Add(1)
-			go func(root string, name string, dirs *[]Directory, wg *sync.WaitGroup, mutex *sync.Mutex) {
-				defer (*wg).Done()
+			dircount++
+			go func(root string, name string, dirs *[]Directory, ch chan<- Directory) {
 				size, err := dirSize(fmt.Sprintf("%s/%s", root, name))
 				if err != nil {
 					fmt.Println(err)
@@ -66,13 +64,13 @@ func GetDirs(root string) ([]Directory, error) {
 				dirsi.Path = root
 				dirsi.Size = float64(size) / ByteInMB
 				dirsi.Type = "dir"
-				(*mutex).Lock()
-				defer (*mutex).Unlock()
-				*dirs = append(*dirs, dirsi)
-			}(root, dir.Name(), &dirs, &wg, &mutex)
+				ch <- dirsi
+			}(root, dir.Name(), &dirs, dirChan)
 		}
 	}
-	wg.Wait()
+	for i := 0; i < dircount; i++ {
+		dirs = append(dirs, <-dirChan)
+	}
 	return dirs, nil
 }
 
