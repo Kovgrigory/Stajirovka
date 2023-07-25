@@ -1,0 +1,71 @@
+div {
+    font-size:14px;
+}
+#header {
+    background-color: rgb(156, 156, 156);
+    height: 25px;
+    width: 100%;
+}
+button {
+    background-color: white;
+    border-width: 0;
+}
+.dir {
+    text-align: left;
+}
+.dir:before {
+    content:"\2709";
+    font-weight: bold;
+}
+.dir:hover {
+    background-color: rgb(107, 107, 107);
+}
+.file {
+    text-align: left;
+}
+.file:hover {
+    background-color: white
+}
+#back {
+    background-color: rgb(156, 156, 156);
+    width:50px;
+    height: 100%;
+    border-width:2px;
+    border-color:rgb(107, 107, 107);
+    border-style: solid;
+    float:left;
+    font-weight: bold;
+    color:rgb(34, 34, 34);
+}
+#back:hover {
+    background-color: rgb(107, 107, 107);
+}
+#sort {
+    background-color: rgb(156, 156, 156);
+    margin-left:10px;
+    width:30px;
+    height: 100%;
+    border-width: 2px;
+    border-color:rgb(107, 107, 107);
+    border-style: solid;
+    float:left;
+}
+#sort:before {
+    content:"\2191\2193";
+    float:left;
+    font-size:12px;
+    font-weight: bold;
+}
+#sort:hover {
+    background-color: rgb(107, 107, 107);
+}
+#timetext {
+    font-size: 10px;
+    font-family: monospace;
+}
+#roottext {
+    background-color: rgb(156, 156, 156);
+    height: 100%;
+    margin-left:10%;
+    float:left;
+}
