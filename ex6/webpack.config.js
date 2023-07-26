@@ -2,10 +2,10 @@ var path = require("path");
 module.exports = {
     entry: "./ts/script.ts",
     resolve: {
-        extensions: [".ts",".js",],
+        extensions: [".ts"],
     },
     output: {
-        path: path.resolve(__dirname,"/static/"),
+        path: path.resolve(__dirname,"./bundle/"),
         filename: "bundle.js",
     },
     module: {

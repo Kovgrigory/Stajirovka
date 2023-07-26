@@ -2,7 +2,7 @@
     "compilerOptions": {
         "target":"ES5",
         "module":"CommonJS",
-        "outDir": "static",
+        "outDir": "bundle",
     },
     "exclude": [
         "node_modules",
