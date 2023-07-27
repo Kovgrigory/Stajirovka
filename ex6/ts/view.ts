@@ -1,7 +1,9 @@
-import { DirResponse,Directory,reqDirs} from "./request";
-
+import { DirResponse } from "./types";
+import reqDirs from "./request";
+let root="/";
+let sort="asc";
 //showDirs выводит директории и файлы из response
-export function showDirs (response:DirResponse) {
+export default function showDirs (response:DirResponse) {
     let divDirs = document.getElementById("dirs");
     showHeader();
     if (response.Dirs.length == 0) {
@@ -49,13 +51,13 @@ function showHeader() {
     }
 }
 //buttonCheck считывает нажатия на директории и кнопки возврата назад и сортировки
-export function buttonCheck() {
+function buttonCheck() {
     let buttons = document.getElementsByClassName("dir");
     for (let i=0;i<buttons.length;i++) {
         let button=buttons[i];
         button.addEventListener("click", () => {
             root = button.id;
-            reqDirs(root, sort);
+            reqDirs(root, sort,showDirs);
         });
     }
     let backButton = document.getElementById("back");
@@ -63,7 +65,7 @@ export function buttonCheck() {
         backButton.addEventListener("click", () => {
             if (root != "/") {
                 root = root.substring(0, root.lastIndexOf("/"));
-                reqDirs(root, sort);
+                reqDirs(root, sort,showDirs);
             }
         })
     }
@@ -75,7 +77,7 @@ export function buttonCheck() {
             } else if (sort == "desc") {
                 sort = "asc";
             }
-            reqDirs(root, sort);
+            reqDirs(root, sort,showDirs);
         })
     }
 }

@@ -1,8 +1,9 @@
-import { reqDirs } from "./request";
+import reqDirs from "./request";
+import showDirs from "./view";
 declare global {
     var sort:string;
     var root:string;
 }
-sort = "asc";
-root = "/";
-reqDirs(root,sort);
+let sort = "asc";
+let root = "/";
+reqDirs(root,sort,showDirs);

@@ -5,7 +5,7 @@ module.exports = {
         extensions: [".ts"],
     },
     output: {
-        path: path.resolve(__dirname,"./bundle/"),
+        path: path.resolve(__dirname,"./static/"),
         filename: "bundle.js",
     },
     module: {
